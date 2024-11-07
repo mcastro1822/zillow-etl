@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "template"
+dynamic = ["version"]
+description = ""
+readme = "README.md"
+requires-python = ">=3.11"
+# Don't need dependencies, those should be installed in the container
+# and are managed by pipenv
+dependencies = []
+license.file = "LICENSE"
+
+[project.scripts]
+template = "template.cli:cli"
+
+[tool.interrogate]
+exclude = ["tests/"]
+ignore-init-module = true
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src"
+]
+
+[dependency-groups]
+dev = [
+    "click>=8.1.7",
+    "pre-commit>=4.0.1",
+    "prefect<3.0.0",
+    "prefecto>=1.1.1",
+    "pydantic>=2.9.2",
+    "pytest>=8.3.3",
+]
