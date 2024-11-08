@@ -129,6 +129,18 @@ wheels = [
 ]
 
 [[package]]
+name = "beautifulsoup4"
+version = "4.12.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "soupsieve" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b3/ca/824b1195773ce6166d388573fc106ce56d4a805bd7427b624e063596ec58/beautifulsoup4-4.12.3.tar.gz", hash = "sha256:74e3d1928edc070d21748185c46e3fb33490f22f52a3addee9aee0f4f7781051", size = 581181 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b1/fe/e8c672695b37eecc5cbf43e1d0638d88d66ba3a44c4d321c796f4e59167f/beautifulsoup4-4.12.3-py3-none-any.whl", hash = "sha256:b80878c9f40111313e55da8ba20bdba06d8fa3969fc68304167741bbf9e082ed", size = 147925 },
+]
+
+[[package]]
 name = "cachetools"
 version = "5.5.0"
 source = { registry = "https://pypi.org/simple" }
@@ -429,6 +441,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/a0/52/f16a068ebadae42526484c31f4398e62962504e5724a8ba5dc3409483df2/fsspec-2024.10.0.tar.gz", hash = "sha256:eda2d8a4116d4f2429db8550f2457da57279247dd930bb12f821b58391359493", size = 286853 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c6/b2/454d6e7f0158951d8a78c2e1eb4f69ae81beb8dca5fee9809c6c99e9d0d0/fsspec-2024.10.0-py3-none-any.whl", hash = "sha256:03b9a6785766a4de40368b88906366755e2819e758b83705c88cd7cb5fe81871", size = 179641 },
+]
+
+[[package]]
+name = "getuseragent"
+version = "0.0.7"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/49/a3/189cf72d47cfaa039d36df537281d740c35823af87f95ce2c48c68499735/getuseragent-0.0.7.tar.gz", hash = "sha256:fdfa80651e787771142f711ac120dc7bfb852a13fb4525087605149e57ab196b", size = 24486 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/97/96/8f5451cbf1b862614a168764356108eefa5f07b585de7c3ece3110d6fe93/getuseragent-0.0.7-py3-none-any.whl", hash = "sha256:faf29ae99771e3e0a9f28912161092988dad3c8183dcbe6de9ee063bf45e0b32", size = 25600 },
 ]
 
 [[package]]
@@ -1377,6 +1398,18 @@ wheels = [
 ]
 
 [[package]]
+name = "respx"
+version = "0.21.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "httpx" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/fd/72/979e475ade69bcbb18288604aacbdc77b44b3bd1133e2c16660282a9f4b8/respx-0.21.1.tar.gz", hash = "sha256:0bd7fe21bfaa52106caa1223ce61224cf30786985f17c63c5d71eff0307ee8af", size = 28306 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a5/5c/428523509b26c243c1e93aa2ae385def597ef1fbdbbd47978430ba19037d/respx-0.21.1-py2.py3-none-any.whl", hash = "sha256:05f45de23f0c785862a2c92a3e173916e8ca88e4caad715dd5f68584d6053c20", size = 25130 },
+]
+
+[[package]]
 name = "rfc3339-validator"
 version = "0.1.4"
 source = { registry = "https://pypi.org/simple" }
@@ -1532,6 +1565,15 @@ wheels = [
 ]
 
 [[package]]
+name = "soupsieve"
+version = "2.6"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/d7/ce/fbaeed4f9fb8b2daa961f90591662df6a86c1abf25c548329a86920aedfb/soupsieve-2.6.tar.gz", hash = "sha256:e2e68417777af359ec65daac1057404a3c8a5455bb8abc36f1a9866ab1a51abb", size = 101569 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d1/c2/fe97d779f3ef3b15f05c94a2f1e3d21732574ed441687474db9d342a7315/soupsieve-2.6-py3-none-any.whl", hash = "sha256:e72c4ff06e4fb6e4b5a9f0f55fe6e81514581fca1515028625d0f299c602ccc9", size = 36186 },
+]
+
+[[package]]
 name = "sqlalchemy"
 version = "2.0.35"
 source = { registry = "https://pypi.org/simple" }
@@ -1563,33 +1605,6 @@ wheels = [
 [package.optional-dependencies]
 asyncio = [
     { name = "greenlet" },
-]
-
-[[package]]
-name = "template"
-version = "0.0.0"
-source = { editable = "." }
-
-[package.dev-dependencies]
-dev = [
-    { name = "click" },
-    { name = "pre-commit" },
-    { name = "prefect" },
-    { name = "prefecto" },
-    { name = "pydantic" },
-    { name = "pytest" },
-]
-
-[package.metadata]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "click", specifier = ">=8.1.7" },
-    { name = "pre-commit", specifier = ">=4.0.1" },
-    { name = "prefect", specifier = "<3.0.0" },
-    { name = "prefecto", specifier = ">=1.1.1" },
-    { name = "pydantic", specifier = ">=2.9.2" },
-    { name = "pytest", specifier = ">=8.3.3" },
 ]
 
 [[package]]
@@ -1822,4 +1837,43 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/35/c6/12e3aab52c11aeb289e3dbbc05929e7a9d90d7a9173958477d3ef4f8ce2d/websockets-13.1-cp313-cp313-win32.whl", hash = "sha256:624459daabeb310d3815b276c1adef475b3e6804abaf2d9d2c061c319f7f187d", size = 158709 },
     { url = "https://files.pythonhosted.org/packages/41/d8/63d6194aae711d7263df4498200c690a9c39fb437ede10f3e157a6343e0d/websockets-13.1-cp313-cp313-win_amd64.whl", hash = "sha256:c518e84bb59c2baae725accd355c8dc517b4a3ed8db88b4bc93c78dae2974bf2", size = 159144 },
     { url = "https://files.pythonhosted.org/packages/56/27/96a5cd2626d11c8280656c6c71d8ab50fe006490ef9971ccd154e0c42cd2/websockets-13.1-py3-none-any.whl", hash = "sha256:a9a396a6ad26130cdae92ae10c36af09d9bfe6cafe69670fd3b6da9b07b4044f", size = 152134 },
+]
+
+[[package]]
+name = "zillow-etl"
+version = "0.0.0"
+source = { editable = "." }
+dependencies = [
+    { name = "beautifulsoup4" },
+    { name = "getuseragent" },
+    { name = "orjson" },
+    { name = "respx" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "click" },
+    { name = "pre-commit" },
+    { name = "prefect" },
+    { name = "prefecto" },
+    { name = "pydantic" },
+    { name = "pytest" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "beautifulsoup4", specifier = ">=4.12.3" },
+    { name = "getuseragent", specifier = ">=0.0.7" },
+    { name = "orjson", specifier = ">=3.10.11" },
+    { name = "respx", specifier = ">=0.21.1" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "click", specifier = ">=8.1.7" },
+    { name = "pre-commit", specifier = ">=4.0.1" },
+    { name = "prefect", specifier = "<3.0.0" },
+    { name = "prefecto", specifier = ">=1.1.1" },
+    { name = "pydantic", specifier = ">=2.9.2" },
+    { name = "pytest", specifier = ">=8.3.3" },
 ]
