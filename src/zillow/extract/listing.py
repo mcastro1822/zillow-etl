@@ -16,7 +16,7 @@ def collect_listing_attrs(html_bytes: bytes) -> dict:
         html_bytes: html from requested zillow listing
 
     Returns:
-        listing_json: Listing JSON containing its attributes
+        property_json: JSON containing listings' attributes
 
     """
     soup = BeautifulSoup(html_bytes, "html.parser")
@@ -35,6 +35,6 @@ def collect_listing_attrs(html_bytes: bytes) -> dict:
 
     assert len(raw_property_json) == 1
 
-    property_json = list(raw_property_json.values())[0]
+    property_json: dict = list(raw_property_json.values())[0]
 
     return property_json

@@ -6,7 +6,7 @@ pytest_plugins = ["fixtures_zillow"]
 
 
 @pytest.fixture
-def asset_folder():
+def asset_folder() -> Path:
     """
     Project Test asset folder path
     """

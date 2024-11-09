@@ -17,5 +17,5 @@ class TestListings:
         indirect=True,
     )
     def test_collect_listing_attrs(self, grab_html: bytes, grab_json: dict):
-        results = collect_listing_attrs.fn(grab_html)
+        results: dict = collect_listing_attrs.fn(grab_html)
         assert results == grab_json

@@ -8,7 +8,7 @@ from prefect import task
 
 
 @task(description="Geneerates a CSRF Token from the site")
-def extract_csrf_token():
+def extract_csrf_token() -> str:
     """
     Generates a new csrf token
     """

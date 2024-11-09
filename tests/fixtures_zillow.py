@@ -17,7 +17,7 @@ def grab_html(asset_folder, request: FixtureRequest) -> bytes:
 
 
 @pytest.fixture
-def grab_json(asset_folder, request: FixtureRequest) -> bytes:
+def grab_json(asset_folder, request: FixtureRequest) -> dict:
     """ """
     path: Path = asset_folder / "response" / request.param
 
