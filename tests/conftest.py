@@ -2,6 +2,8 @@ from pathlib import Path
 
 import pytest
 
+pytest_plugins = ["fixtures_zillow"]
+
 
 @pytest.fixture
 def asset_folder():

@@ -2,30 +2,17 @@
 Contains Tests for the Sitemap extractions
 """
 
-from pathlib import Path
 from typing import Callable
 
 import pytest
 import respx
-from bs4 import BeautifulSoup
 from httpx import Headers, Response
-from pytest import FixtureRequest
 
 from zillow.sitemap import (
     extract_csrf_token,
     extract_sitemap_dir_urls,
     extract_sitemap_urls,
 )
-
-
-@pytest.fixture
-def grab_html(asset_folder, request: FixtureRequest) -> bytes:
-    """ """
-    path: Path = asset_folder / "response" / request.param
-
-    with open(path, "r", encoding="utf-8") as file:
-        soup = BeautifulSoup(file.read(), "html.parser")
-        return soup.encode("utf-8")
 
 
 class TestSitemap:

@@ -22,7 +22,7 @@ def extract_csrf_token():
     response.raise_for_status()
 
     csrf_token: str = response.headers["x-amz-cf-id"]
-    print(response.headers)
+
     return csrf_token
 
 
