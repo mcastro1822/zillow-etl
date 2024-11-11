@@ -3,8 +3,56 @@ Module for collecting listings from Zillow Sitemap
 """
 
 import httpx
+from bs4 import BeautifulSoup
 from getuseragent import UserAgent
 from prefect import task
+
+
+@task(name="Collects Sitemap partitions")
+def collect_sitemap_indexes(html_bytes: bytes) -> list:
+    """
+    Parses HTML and converts partitions into a list
+
+    Args:
+        html_bytes: Incoming sitemap directory html bytes
+
+    Returns:
+        sitemaps: list of sitemap urls
+
+    """
+    soup = BeautifulSoup(html_bytes, "html.parser")
+
+    sitemaps = [
+        url.strip()
+        for url in (
+            item.find(name="loc").string for item in soup.find_all(name="sitemap")
+        )
+    ]
+
+    return sitemaps
+
+
+@task(name="Collects Sitemap Property URLs")
+def collect_property_urls(html_bytes: bytes) -> list:
+    """
+    Parses HTML and collects property URLs
+
+    Args:
+        html_bytes: Incoming sitemap directory html bytes
+
+    Returns:
+        sitemaps: list of property urls
+
+    """
+    soup = BeautifulSoup(html_bytes, "html.parser")
+
+    sitemaps = [
+        url.strip()
+        for url in (item.find(name="loc").string for item in soup.find_all(name="url"))
+    ]
+    print(sitemaps)
+
+    return sitemaps
 
 
 @task(description="Geneerates a CSRF Token from the site")

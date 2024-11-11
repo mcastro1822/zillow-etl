@@ -2,8 +2,11 @@ from prefect import flow
 from prefect.futures import PrefectFuture
 from prefecto.concurrency import BatchTask
 
-from zillow.extract.site_map_index import collect_sitemap_partitions
-from zillow.sitemap import extract_sitemap_dir_urls, extract_sitemap_urls
+from zillow.sitemap import (
+    collect_sitemap_indexes,
+    extract_sitemap_dir_urls,
+    extract_sitemap_urls,
+)
 
 
 @flow(name="Queue Zillow Property Listings")
@@ -18,11 +21,11 @@ def queue_listings(state_code: str):
     """
     sitemap_dir_html: bytes = extract_sitemap_dir_urls()
 
-    sitemap_partitions: list = collect_sitemap_partitions(sitemap_dir_html)
+    sitemap_indexes: list = collect_sitemap_indexes(sitemap_dir_html)
 
     batch_get = BatchTask(extract_sitemap_urls, 4)
 
-    futures: list[PrefectFuture] = batch_get.map(sitemap_partitions)
+    futures: list[PrefectFuture] = batch_get.map(sitemap_indexes)
 
     property_urls = [future.result() for future in futures]
 
