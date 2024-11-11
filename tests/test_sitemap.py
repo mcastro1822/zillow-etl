@@ -24,7 +24,7 @@ class TestSitemap:
         "grab_html, func, url, param",
         [
             (
-                "sitemap-dir.html",
+                "sitemap-index.html",
                 extract_sitemap_dir_urls,
                 "https://www.zillow.com/xml/indexes/us/hdp/for-sale-by-agent.xml.gz",
                 False,
