@@ -2,7 +2,6 @@
 Module for listing transformations
 """
 
-from prefect import task
 from pydantic import BaseModel, ConfigDict, Field
 
 
@@ -13,7 +12,9 @@ class Address(BaseModel):
 
     model_config = ConfigDict(extra="ignore")
 
-    streetAddress: str
+    streetAddress: str = Field(
+        name="Street Address", examples=["6851 Roswell Rd APT O31"]
+    )
     city: str = Field(
         name="City",
         description="City that the property resides in",
@@ -22,10 +23,12 @@ class Address(BaseModel):
     state: str = Field(
         name="State", description="State that the property is in", examples=["CA", "GA"]
     )
-    zipcode: str
-    neighborhood: str | None
-    community: str | None
-    subdivision: str | None
+    zipcode: str = Field(
+        name="Zip Code", description="Property Zip Code", examples=["30328"]
+    )
+    neighborhood: str | None = Field(name="Neighborhood")
+    community: str | None = Field(name="Community")
+    subdivision: str | None = Field(name="Subdivision")
 
 
 class ResoFacts(BaseModel):
@@ -35,13 +38,49 @@ class ResoFacts(BaseModel):
 
     model_config = ConfigDict(extra="ignore")
 
-    architecturalStyle: str
-    appliances: list
-    communityFeatures: list
-    hasCooling: bool
-    hasHeating: bool
-    taxAnnualAmount: int
-    stories: int
+    architecturalStyle: str = Field(
+        name="Architectural Style",
+        description="Style of the property",
+        examples=["European,Traditional"],
+    )
+    appliances: list = Field(
+        name="Appliamces",
+        description="List of appliances for the property",
+        examples=[
+            [
+                "Dishwasher",
+                "Disposal",
+            ]
+        ],
+    )
+    communityFeatures: list = Field(
+        name="Community Features",
+        description="List of community features for the property",
+        examples=[
+            [
+                "Clubhouse",
+                "Homeowners Assoc",
+            ]
+        ],
+    )
+    hasCooling: bool = Field(
+        name="Has Cooling",
+        description="Boolean indicator for whether a property has cooling",
+        examples=[True, False],
+    )
+    hasHeating: bool = Field(
+        name="Has Heating",
+        description="Boolean indicator for whether a property has heating",
+        examples=[True, False],
+    )
+    taxAnnualAmount: int = Field(
+        name="Tax Annual Amount",
+        description="Annual tax amount of the proeprty",
+        examples=[1287],
+    )
+    stories: int = Field(
+        name="Stories", description="Number of floors a property has", examples=[1, 2]
+    )
 
 
 class Property(BaseModel):
@@ -138,9 +177,3 @@ class Property(BaseModel):
         description="Unique Identifier across platforms for the listing",
         examples=["7477717"],
     )
-
-
-@task
-def property_json_to_df(property_json: dict):
-    """ """
-    Property.model_construct(property_json)
