@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-pytest_plugins = ["fixtures_zillow"]
+pytest_plugins = ["fixtures_zillow", "fixtures_prefect", "fixtures_mongo"]
 
 
 @pytest.fixture
