@@ -105,7 +105,7 @@ class ZillowRepository(AbstractRepository[Property]):
     class Meta:
         collection_name: str = "product_zillow"
 
-    def find_by_zid(self, zid: str) -> list[Property]:
+    def find_by_zid(self, zid: str) -> Property:
         """
         Finds document by zillow id
         """

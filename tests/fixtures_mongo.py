@@ -46,3 +46,5 @@ def populate_mongo(mock_db, property_set):
     repo = ZillowRepository(mock_db["local"])
 
     repo.save_many(property_set)
+
+    yield
