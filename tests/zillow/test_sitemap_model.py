@@ -4,7 +4,7 @@ Module for testing mongo db property configs
 
 import pytest
 
-from zillow.sitemap_model import Property
+from zillow.sitemap_model import Property, ZillowRepository
 
 
 class TestProperty:
@@ -49,3 +49,19 @@ class TestProperty:
         property = Property(property_url=property_url, last_modified=last_modified)
 
         assert property.zillow_id == expected_zid
+
+
+class TestZillowRepository:
+
+    def test_find_by_zid(self, mock_db, populate_mongo):
+
+        repo = ZillowRepository(mock_db["local"])
+
+        property: Property = repo.find_by_zid("2146997656")
+
+        assert (
+            property.property_url
+            == "https://www.zillow.com/homedetails/9510-Amherst-Ave-APT-121-Margate-City-NJ-08402/2146997656_zpid/"
+        )
+        assert property.last_modified == "2024-08-14T14:53:00Z"
+        assert property.zillow_id == "2146997656"

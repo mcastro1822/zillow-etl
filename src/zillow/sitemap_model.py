@@ -6,19 +6,16 @@ only extract urls which are different from the last modified date for each docum
 import re
 from functools import cached_property
 
-from pendulum import parse
 from pendulum.datetime import DateTime
 from pydantic import (
     BaseModel,
     Field,
     RootModel,
     computed_field,
-    field_serializer,
     field_validator,
 )
-from pydantic.networks import HttpUrl, UrlConstraints
+from pydantic.networks import HttpUrl
 from pydantic_mongo import AbstractRepository, ObjectIdField
-from typing_extensions import Annotated
 
 
 class Property(BaseModel):
@@ -29,9 +26,7 @@ class Property(BaseModel):
     id: ObjectIdField | None = Field(
         title="Document ID", description="MongoDB ID of the document", default=None
     )
-    property_url: Annotated[
-        HttpUrl, UrlConstraints(allowed_schemes=["https"], default_host="zillow.com")
-    ] = Field(
+    property_url: str = Field(
         title="URL to Zillow Property",
         description="Static Zillow URL for a listing",
         exampes=[
@@ -52,12 +47,22 @@ class Property(BaseModel):
         """
         REGEX_PATTERN = "\/([0-9]+)[_]zpid\/"
 
-        match: re.Match = re.search(REGEX_PATTERN, self.property_url.unicode_string())
+        match: re.Match = re.search(REGEX_PATTERN, self.property_url)
 
         if match:
             return match.group(1)
         else:
             raise ValueError("No Zillow ID found. URL Erroneous")
+
+    @field_validator("property_url")
+    def validate_property_url(cls, value: str):
+        """
+        Simple Assertion to ensure the URLs are to zillow.com
+        """
+
+        url: HttpUrl = HttpUrl(value)
+        assert url.host == "www.zillow.com"
+        return value
 
     @field_validator("last_modified")
     @classmethod
@@ -74,12 +79,6 @@ class Property(BaseModel):
         else:
             raise ValueError("No DateTime String could be parsed")
 
-    @field_serializer("last_modified")
-    def serialze_last_modified(self, value):
-
-        dt = parse(value, exact=True)
-        return dt
-
 
 class PropertySet(RootModel):
     """
@@ -88,6 +87,15 @@ class PropertySet(RootModel):
 
     root: list[Property]
 
+    def __getitem__(self, index: int):
+        return self.root[index]
+
+    def __len__(self):
+        return len(self.root)
+
+    def __iter__(self):
+        return iter(self.root)
+
 
 class ZillowRepository(AbstractRepository[Property]):
     """
@@ -95,11 +103,11 @@ class ZillowRepository(AbstractRepository[Property]):
     """
 
     class Meta:
-        collection: str = "product_zillow"
+        collection_name: str = "product_zillow"
 
     def find_by_zid(self, zid: str) -> list[Property]:
         """
         Finds document by zillow id
         """
 
-        return list(self.find_by({"zillow_id": zid}))
+        return self.find_one_by({"zillow_id": zid})
