@@ -7,6 +7,8 @@ from bs4 import BeautifulSoup
 from getuseragent import UserAgent
 from prefect import task
 
+from zillow.sitemap_model import PropertySet
+
 
 @task(name="Collects Sitemap partitions")
 def collect_sitemap_indexes(html_bytes: bytes) -> list:
@@ -46,13 +48,16 @@ def collect_property_urls(html_bytes: bytes) -> list:
     """
     soup = BeautifulSoup(html_bytes, "html.parser")
 
-    sitemaps = [
-        url.strip()
-        for url in (item.find(name="loc").string for item in soup.find_all(name="url"))
+    parsed_prop_urls: list[dict] = [
+        {
+            "property_url": item.find(name="loc").string.strip(),
+            "last_modified": item.find(name="lastmod").string.strip(),
+        }
+        for item in soup.find_all(name="url")
     ]
-    print(sitemaps)
+    property_set: PropertySet = PropertySet.model_validate(parsed_prop_urls)
 
-    return sitemaps
+    return property_set
 
 
 @task(description="Geneerates a CSRF Token from the site")

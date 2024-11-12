@@ -9,6 +9,7 @@ import respx
 from httpx import Headers, Response
 
 from zillow.sitemap import (
+    collect_property_urls,
     collect_sitemap_indexes,
     extract_csrf_token,
     extract_sitemap_dir_urls,
@@ -126,3 +127,14 @@ class TestSitemap:
             "https://www.zillow.com/xml/sitemaps/us/hdp/for-sale-by-agent/sitemap-0026.xml.gz",
             "https://www.zillow.com/xml/sitemaps/us/hdp/for-sale-by-agent/sitemap-0027.xml.gz",
         ]
+
+    @pytest.mark.parametrize(
+        "grab_html",
+        [("sitemap.html")],
+        indirect=True,
+    )
+    def test_collect_property_urls(self, grab_html: bytes):
+
+        property_set: list = collect_property_urls.fn(grab_html)
+
+        assert len(property_set) == 50000
