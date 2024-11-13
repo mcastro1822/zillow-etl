@@ -45,4 +45,6 @@ def query_zillow_listings(property_urls: list[str]):
 
     results: list = [future.result() for future in futures]
 
-    return results
+    df = pl.concat(results, how="vertical")
+
+    return df
