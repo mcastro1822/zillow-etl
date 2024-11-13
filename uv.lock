@@ -141,6 +141,34 @@ wheels = [
 ]
 
 [[package]]
+name = "boto3"
+version = "1.35.59"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "botocore" },
+    { name = "jmespath" },
+    { name = "s3transfer" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/af/ca/09fb332e8bab219df4832337978d7c8227571b86fdcfb28355f591cf544f/boto3-1.35.59.tar.gz", hash = "sha256:81f4d8d6eff3e26b82cabd42eda816cfac9482821fdef353f18d2ba2f6e75f2d", size = 111011 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/80/ad/b8ca386a511b0b3cf1f9e45426b570a83246b01010a18de87786b212d3b1/boto3-1.35.59-py3-none-any.whl", hash = "sha256:8f8ff97cb9cb2e1ec7374209d0c09c1926b75604d6464c34bafaffd6d6cf0529", size = 139178 },
+]
+
+[[package]]
+name = "botocore"
+version = "1.35.59"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "jmespath" },
+    { name = "python-dateutil" },
+    { name = "urllib3" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ff/19/f4609e3f9ae2c166fd1350e9128b647f9a1d3ecd2e01db08cd0227c2b9e0/botocore-1.35.59.tar.gz", hash = "sha256:de0ce655fedfc02c87869dfaa3b622488a17ff37da316ef8106cbe1573b83c98", size = 12966883 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/05/8c/31ca91afc34b03de36ca560fde66af0c32e205c8a22bf4222b6ae2c424b7/botocore-1.35.59-py3-none-any.whl", hash = "sha256:bcd66d7f55c8d1b6020eb86f2d87893fe591fb4be6a7d2a689c18be586452334", size = 12755348 },
+]
+
+[[package]]
 name = "cachetools"
 version = "5.5.0"
 source = { registry = "https://pypi.org/simple" }
@@ -683,6 +711,15 @@ wheels = [
 ]
 
 [[package]]
+name = "jmespath"
+version = "1.0.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/00/2a/e867e8531cf3e36b41201936b7fa7ba7b5702dbef42922193f05c8976cd6/jmespath-1.0.1.tar.gz", hash = "sha256:90261b206d6defd58fdd5e85f478bf633a2901798906be2ad389150c5c60edbe", size = 25843 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/31/b4/b9b800c45527aadd64d5b442f9b932b00648617eb5d63d2c7a6587b7cafc/jmespath-1.0.1-py3-none-any.whl", hash = "sha256:02e2e4cc71b5bcab88332eebf907519190dd9e6e82107fa7f83b1003a6252980", size = 20256 },
+]
+
+[[package]]
 name = "jsonpatch"
 version = "1.33"
 source = { registry = "https://pypi.org/simple" }
@@ -854,6 +891,30 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/47/1d/e6eb5dee9c95e086fc1a72c3d50b71385c81ebe963cc85c2150914629c6b/mongomock-4.2.0.post1.tar.gz", hash = "sha256:9241d2cec7274b9736dbe8edacb19528ff66af3b3779b324d79ecc4201227f31", size = 134369 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d0/3c/846538689518247545758c29ef2d7587126c481118e580892ded3439dbbc/mongomock-4.2.0.post1-py2.py3-none-any.whl", hash = "sha256:ff78f1944bf0cdcfc291ece198357db805c2f0db39e814bcef8a43c9f53e8a81", size = 64551 },
+]
+
+[[package]]
+name = "mypy-boto3-s3"
+version = "1.35.46"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "typing-extensions", marker = "python_full_version < '3.12'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f2/bc/483ab30ccba6af0c73959e4ed900b5e14eebae543a825fec74710e03621e/mypy_boto3_s3-1.35.46.tar.gz", hash = "sha256:f0087a3765d103b2db565cd8065ebc2b0f70f2dd4e92c132f64b8945dd869940", size = 73086 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/67/a6/77a1496892c0a5e75b1524d750a4ab358352fd6e0ec2ff4eb2d3c22811f5/mypy_boto3_s3-1.35.46-py3-none-any.whl", hash = "sha256:34d19dfba400f5b9bd6b64f09eb8f8eedef60545b410a3753fe99fec0c41ba78", size = 80235 },
+]
+
+[[package]]
+name = "mypy-boto3-secretsmanager"
+version = "1.35.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "typing-extensions", marker = "python_full_version < '3.12'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/60/c4/66fe1c912c6ebf23c17d3003b77ef47c49250d879deb3ef5a902f94a7dac/mypy_boto3_secretsmanager-1.35.0.tar.gz", hash = "sha256:c37d181315ba10d8546872304d7f266e7461429b08e63507c23cc508c3ef4264", size = 18669 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/17/08/84c2b0f0bc7c67cc2f5b8e9f342c35a0a8a6853e786b640b47255c862676/mypy_boto3_secretsmanager-1.35.0-py3-none-any.whl", hash = "sha256:ff72d5743061d1d9bf3f5e308990b78c9bede8e02648f6eb8712e3b2e76d2669", size = 26578 },
 ]
 
 [[package]]
@@ -1088,6 +1149,25 @@ wheels = [
 ]
 
 [[package]]
+name = "prefect-aws"
+version = "0.4.20"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "boto3" },
+    { name = "botocore" },
+    { name = "exceptiongroup" },
+    { name = "mypy-boto3-s3" },
+    { name = "mypy-boto3-secretsmanager" },
+    { name = "prefect" },
+    { name = "pyparsing" },
+    { name = "tenacity" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/d0/cf/ff20e7d0d5af84cd8c63f3a9b628d212c074c153bc07a32a14b3d3dae792/prefect_aws-0.4.20.tar.gz", hash = "sha256:e90534df7e990a94882800d26ebe11dcc38926858223607a6176b667f3996536", size = 99627 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/30/f7/a9f55f47fb6177c6cbfbdc9d18b9d372f571f1616591cba3d4c2552fc849/prefect_aws-0.4.20-py3-none-any.whl", hash = "sha256:5dc6d1b759faa560b5cc38b9a35c93968b259bdf2c048a11d674c436f7d038f4", size = 64904 },
+]
+
+[[package]]
 name = "prefecto"
 version = "1.1.1"
 source = { registry = "https://pypi.org/simple" }
@@ -1266,6 +1346,15 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/3b/26/6c0a5360a571df24c9bfbd51b1dae279f4f0c511bdbc0906f6df6d1543fa/pymongo-4.10.1-cp313-cp313-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:8ad05eb9c97e4f589ed9e74a00fcaac0d443ccd14f38d1258eb4c39a35dd722b", size = 2111112 },
     { url = "https://files.pythonhosted.org/packages/38/bc/5b91b728e1cf505d931f04e24cbac71ae519523785570ed046cdc31e6efc/pymongo-4.10.1-cp313-cp313-win32.whl", hash = "sha256:ee4c86d8e6872a61f7888fc96577b0ea165eb3bdb0d841962b444fa36001e2bb", size = 948727 },
     { url = "https://files.pythonhosted.org/packages/0d/2a/7c24a6144eaa06d18ed52822ea2b0f119fd9267cd1abbb75dae4d89a3803/pymongo-4.10.1-cp313-cp313-win_amd64.whl", hash = "sha256:45ee87a4e12337353242bc758accc7fb47a2f2d9ecc0382a61e64c8f01e86708", size = 976873 },
+]
+
+[[package]]
+name = "pyparsing"
+version = "3.2.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/8c/d5/e5aeee5387091148a19e1145f63606619cb5f20b83fccb63efae6474e7b2/pyparsing-3.2.0.tar.gz", hash = "sha256:cbf74e27246d595d9a74b186b810f6fbb86726dbf3b9532efb343f6d7294fe9c", size = 920984 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/be/ec/2eb3cd785efd67806c46c13a17339708ddc346cbb684eade7a6e6f79536a/pyparsing-3.2.0-py3-none-any.whl", hash = "sha256:93d9577b88da0bbea8cc8334ee8b918ed014968fd2ec383e868fb8afb1ccef84", size = 106921 },
 ]
 
 [[package]]
@@ -1629,6 +1718,18 @@ wheels = [
 ]
 
 [[package]]
+name = "s3transfer"
+version = "0.10.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "botocore" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a0/a8/e0a98fd7bd874914f0608ef7c90ffde17e116aefad765021de0f012690a2/s3transfer-0.10.3.tar.gz", hash = "sha256:4f50ed74ab84d474ce614475e0b8d5047ff080810aac5d01ea25231cfc944b0c", size = 144591 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e5/c0/b0fba8259b61c938c9733da9346b9f93e00881a9db22aafdd72f6ae0ec05/s3transfer-0.10.3-py3-none-any.whl", hash = "sha256:263ed587a5803c6c708d3ce44dc4dfedaab4c1a32e8329bab818933d79ddcf5d", size = 82625 },
+]
+
+[[package]]
 name = "sentinels"
 version = "1.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1702,6 +1803,15 @@ wheels = [
 [package.optional-dependencies]
 asyncio = [
     { name = "greenlet" },
+]
+
+[[package]]
+name = "tenacity"
+version = "9.0.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/cd/94/91fccdb4b8110642462e653d5dcb27e7b674742ad68efd146367da7bdb10/tenacity-9.0.0.tar.gz", hash = "sha256:807f37ca97d62aa361264d497b0e31e92b8027044942bfa756160d908320d73b", size = 47421 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b6/cb/b86984bed139586d01532a587464b5805f12e397594f19f931c4c2fbfa61/tenacity-9.0.0-py3-none-any.whl", hash = "sha256:93de0c98785b27fcf659856aa9f54bfbd399e29969b0621bc7f762bd441b4539", size = 28169 },
 ]
 
 [[package]]
@@ -1946,6 +2056,7 @@ dependencies = [
     { name = "mongomock" },
     { name = "orjson" },
     { name = "polars" },
+    { name = "prefect-aws" },
     { name = "pydantic-extra-types" },
     { name = "pydantic-mongo" },
     { name = "pymongo" },
@@ -1969,6 +2080,7 @@ requires-dist = [
     { name = "mongomock", specifier = ">=4.2.0.post1" },
     { name = "orjson", specifier = ">=3.10.11" },
     { name = "polars", specifier = ">=1.12.0" },
+    { name = "prefect-aws", specifier = ">=0.4.20" },
     { name = "pydantic-extra-types", specifier = ">=2.10.0" },
     { name = "pydantic-mongo", specifier = ">=2.3.0" },
     { name = "pymongo", specifier = ">=4.10.1" },

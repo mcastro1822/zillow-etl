@@ -91,9 +91,15 @@ class PropertySet(RootModel):
         return self.root[index]
 
     def __len__(self):
+        """
+        Length
+        """
         return len(self.root)
 
     def __iter__(self):
+        """
+        Iter method
+        """
         return iter(self.root)
 
 
