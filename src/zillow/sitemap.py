@@ -55,9 +55,11 @@ def collect_property_urls(html_bytes: bytes) -> list[Property]:
         }
         for item in soup.find_all(name="url")
     ]
-    property_set: PropertySet = PropertySet.model_validate(parsed_prop_urls)
+    property_set: PropertySet = PropertySet.model_validate(
+        parsed_prop_urls
+    )  # Using here mainly to validate parsed fields
 
-    return property_set.root
+    return property_set.model_dump()
 
 
 @task(description="Geneerates a CSRF Token from the site")
@@ -104,6 +106,21 @@ def extract_sitemap_urls(site_map_url: str) -> bytes:
     headers = {"User-Agent": UserAgent().Random()}
 
     response: httpx.Response = httpx.get(site_map_url, headers=headers)
+
+    response.raise_for_status()
+
+    return response.content
+
+
+@task(description="Collects Listing URL json")
+def extract_listing_url(property_url: str, csrf_token: str) -> bytes:
+    """
+    Extracts property URLs from the ZIllow sitemap
+    """
+
+    headers = {"User-Agent": UserAgent().Random(), "csrfToken": csrf_token}
+
+    response: httpx.Response = httpx.get(property_url, headers=headers)
 
     response.raise_for_status()
 

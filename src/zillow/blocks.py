@@ -11,7 +11,7 @@ class Blocks:
     """Class for lazy loading Prefect Blocks."""
 
     # Define the block name variables
-    mongo_block: str = "mongodb-dev"
+    mongo_block: str = "mongodb-production"
 
     @property
     @lazy_load("mongo_block")

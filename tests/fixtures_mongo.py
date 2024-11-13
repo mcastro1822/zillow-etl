@@ -43,7 +43,7 @@ def property_set():
 
 @pytest.fixture(scope="session")
 def populate_mongo(mock_db, property_set):
-    repo = ZillowRepository(mock_db["local"])
+    repo = ZillowRepository(mock_db["production"])
 
     repo.save_many(property_set)
 

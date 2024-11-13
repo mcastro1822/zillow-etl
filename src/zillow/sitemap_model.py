@@ -117,3 +117,9 @@ class ZillowRepository(AbstractRepository[Property]):
         """
 
         return self.find_one_by({"zillow_id": zid})
+
+    def get_all(self) -> PropertySet:
+        """
+        Grabs all Items in the MongoDB collection
+        """
+        return PropertySet(self.find_by({}))
