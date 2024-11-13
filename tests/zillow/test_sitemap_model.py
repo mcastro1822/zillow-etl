@@ -55,7 +55,7 @@ class TestZillowRepository:
 
     def test_find_by_zid(self, mock_db, populate_mongo):
 
-        repo = ZillowRepository(mock_db["local"])
+        repo = ZillowRepository(mock_db["production"])
 
         property: Property = repo.find_by_zid("2146997656")
 
