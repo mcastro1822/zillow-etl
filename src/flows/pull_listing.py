@@ -83,5 +83,5 @@ def query_zillow_listings(property_urls: list[dict]):
     results: list = [future.result() for future in futures]
 
     df: pl.DataFrame = pl.concat(results, how="diagonal_relaxed")
-    df.write_parquet("sample.parquet")
+
     return df
