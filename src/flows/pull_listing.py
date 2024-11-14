@@ -2,6 +2,7 @@
 Worker Flow to pull and transform zillow listing
 """
 
+import random
 import time
 
 import polars as pl
@@ -36,7 +37,8 @@ def modify_param_on_retry(csrf_token):
         csrf_token = extract_csrf_token()
         return csrf_token
     else:
-        time.sleep(30)
+        sleep_time: int = random.randint(30, 60)
+        time.sleep(sleep_time)
 
         return csrf_token
 
@@ -81,5 +83,5 @@ def query_zillow_listings(property_urls: list[dict]):
     results: list = [future.result() for future in futures]
 
     df: pl.DataFrame = pl.concat(results, how="diagonal_relaxed")
-
+    df.write_parquet("sample.parquet")
     return df
