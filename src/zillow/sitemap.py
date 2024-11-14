@@ -6,6 +6,7 @@ import httpx
 from bs4 import BeautifulSoup
 from getuseragent import UserAgent
 from prefect import task
+from prefect.tasks import exponential_backoff
 
 from zillow.sitemap_model import Property, PropertySet
 
@@ -62,7 +63,12 @@ def collect_property_urls(html_bytes: bytes) -> list[Property]:
     return property_set.model_dump()
 
 
-@task(description="Geneerates a CSRF Token from the site")
+@task(
+    description="Geneerates a CSRF Token from the site",
+    retries=3,
+    retry_delay_seconds=exponential_backoff(3),
+    retry_jitter_factor=0.5,
+)
 def extract_csrf_token() -> str:
     """
     Generates a new csrf token
@@ -81,7 +87,12 @@ def extract_csrf_token() -> str:
     return csrf_token
 
 
-@task(description="Collects URLs from home detail site")
+@task(
+    description="Collects URLs from home detail site",
+    retries=3,
+    retry_delay_seconds=exponential_backoff(3),
+    retry_jitter_factor=0.5,
+)
 def extract_sitemap_dir_urls() -> bytes:
     """
     Extracts property URLs from the ZIllow sitemap
@@ -97,7 +108,12 @@ def extract_sitemap_dir_urls() -> bytes:
     return response.content
 
 
-@task(description="Collects URLs from home detail site")
+@task(
+    description="Collects URLs from home detail site",
+    retries=3,
+    retry_delay_seconds=exponential_backoff(3),
+    retry_jitter_factor=0.5,
+)
 def extract_sitemap_urls(site_map_url: str) -> bytes:
     """
     Extracts property URLs from the ZIllow sitemap
@@ -112,7 +128,12 @@ def extract_sitemap_urls(site_map_url: str) -> bytes:
     return response.content
 
 
-@task(description="Collects Listing URL json")
+@task(
+    description="Collects Listing URL json",
+    retries=3,
+    retry_delay_seconds=exponential_backoff(5),
+    retry_jitter_factor=0.5,
+)
 def extract_listing_url(property_url: str, csrf_token: str) -> bytes:
     """
     Extracts property URLs from the ZIllow sitemap
