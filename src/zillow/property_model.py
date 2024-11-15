@@ -192,8 +192,8 @@ class Property(BaseModel):
     )
     latitude: float = Field(name="Latitude", examples=[33.94186])
     longitude: float = Field(name="Longitude", examples=[-84.37228])
-    brokerageName: str = Field(
-        name="Brokerage Name", examples=["Presley Roth Real Estate"]
+    brokerageName: str | None = Field(
+        name="Brokerage Name", examples=["Presley Roth Real Estate"], default=None
     )
     propertyTaxRate: float = Field(name="Property Tax Rate", examples=[0.82])
     mlsid: str | None = Field(

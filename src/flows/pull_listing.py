@@ -37,7 +37,7 @@ def modify_param_on_retry(csrf_token):
         csrf_token = extract_csrf_token()
         return csrf_token
     else:
-        sleep_time: int = random.randint(30, 60)
+        sleep_time: int = random.randint(30, 70)
         time.sleep(sleep_time)
 
         return csrf_token
@@ -55,6 +55,8 @@ def listing_collection(property_dict: dict, csrf_token: str) -> pl.DataFrame:
     Returns:
         df: Dataframe for the listing
     """
+    sleep_time: int = random.randint(50, 150)
+    time.sleep(sleep_time)
 
     csrf_token = modify_param_on_retry(csrf_token)
 
@@ -76,7 +78,7 @@ def query_zillow_listings(property_urls: list[dict]):
     """
     csrf_token = extract_csrf_token()
 
-    batch_get = BatchTask(listing_collection, 4)
+    batch_get = BatchTask(listing_collection, 60)
 
     futures: list[PrefectFuture] = batch_get.map(property_urls, unmapped(csrf_token))
 

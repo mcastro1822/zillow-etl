@@ -3,8 +3,9 @@ Module for collecting listings from Zillow Sitemap
 """
 
 import httpx
+import requests
 from bs4 import BeautifulSoup
-from getuseragent import UserAgent
+from fake_useragent import UserAgent
 from prefect import task
 from prefect.tasks import exponential_backoff
 
@@ -76,7 +77,7 @@ def extract_csrf_token() -> str:
 
     URL: str = "https://www.zillow.com/xml/indexes/us/hdp/for-sale-by-agent.xml.gz"
 
-    headers = {"User-Agent": UserAgent().Random()}
+    headers = {"User-Agent": UserAgent().random}
 
     response: httpx.Response = httpx.get(URL, headers=headers)
 
@@ -99,7 +100,7 @@ def extract_sitemap_dir_urls() -> bytes:
     """
     URL: str = "https://www.zillow.com/xml/indexes/us/hdp/for-sale-by-agent.xml.gz"
 
-    headers = {"User-Agent": UserAgent().Random()}
+    headers = {"User-Agent": UserAgent().random}
 
     response: httpx.Response = httpx.get(URL, headers=headers)
 
@@ -119,7 +120,7 @@ def extract_sitemap_urls(site_map_url: str) -> bytes:
     Extracts property URLs from the ZIllow sitemap
     """
 
-    headers = {"User-Agent": UserAgent().Random()}
+    headers = {"User-Agent": UserAgent().random}
 
     response: httpx.Response = httpx.get(site_map_url, headers=headers)
 
@@ -139,9 +140,9 @@ def extract_listing_url(property_url: str, csrf_token: str) -> bytes:
     Extracts property URLs from the ZIllow sitemap
     """
 
-    headers = {"User-Agent": UserAgent().Random(), "csrfToken": csrf_token}
+    headers = {"User-Agent": UserAgent().random, "csrfToken": csrf_token}
 
-    response: httpx.Response = httpx.get(property_url, headers=headers)
+    response: httpx.Response = requests.Session().get(property_url, headers=headers)
 
     response.raise_for_status()
 
