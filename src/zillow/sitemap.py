@@ -9,7 +9,7 @@ from fake_useragent import UserAgent
 from prefect import task
 from prefect.tasks import exponential_backoff
 
-from zillow.sitemap_model import Property, PropertySet
+from zillow.mongo_models.sitemap_model import Property, PropertySet
 
 
 @task(name="Collects Sitemap partitions")
