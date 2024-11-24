@@ -4,7 +4,7 @@ Module for testing mongo db property configs
 
 import pytest
 
-from zillow.sitemap_model import Property, ZillowRepository
+from zillow.mongo_models.sitemap_model import Property, ZillowRepository
 
 
 class TestProperty:

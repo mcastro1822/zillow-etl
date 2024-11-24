@@ -7,7 +7,7 @@ from typing import Generator
 import pytest
 from mongomock import MongoClient
 
-from zillow.sitemap_model import Property, PropertySet, ZillowRepository
+from zillow.mongo_models.sitemap_model import Property, PropertySet, ZillowRepository
 
 
 @pytest.fixture(scope="session")
