@@ -8,24 +8,20 @@ from functools import cached_property
 
 from pendulum.datetime import DateTime
 from pydantic import (
-    BaseModel,
     Field,
-    RootModel,
     computed_field,
     field_validator,
 )
 from pydantic.networks import HttpUrl
-from pydantic_mongo import AbstractRepository, ObjectIdField
+
+from zillow.mongo_models.db import AbstractRepo, BaseDocument, DocumentSet
 
 
-class Property(BaseModel):
+class Property(BaseDocument):
     """
     Property Document Base Model
     """
 
-    id: ObjectIdField | None = Field(
-        title="Document ID", description="MongoDB ID of the document", default=None
-    )
     property_url: str = Field(
         title="URL to Zillow Property",
         description="Static Zillow URL for a listing",
@@ -80,36 +76,18 @@ class Property(BaseModel):
             raise ValueError("No DateTime String could be parsed")
 
 
-class PropertySet(RootModel):
+class PropertySet(DocumentSet):
     """
     Property Set Model for collection
     """
 
     root: list[Property]
 
-    def __getitem__(self, index: int):
-        return self.root[index]
 
-    def __len__(self):
-        """
-        Length
-        """
-        return len(self.root)
-
-    def __iter__(self):
-        """
-        Iter method
-        """
-        return iter(self.root)
-
-
-class ZillowRepository(AbstractRepository[Property]):
+class ZillowRepository(AbstractRepo(Property, PropertySet, "product_zillow")):
     """
     Zillow Repository Model
     """
-
-    class Meta:
-        collection_name: str = "product_zillow"
 
     def find_by_zid(self, zid: str) -> Property:
         """
@@ -117,9 +95,3 @@ class ZillowRepository(AbstractRepository[Property]):
         """
 
         return self.find_one_by({"zillow_id": zid})
-
-    def get_all(self) -> PropertySet:
-        """
-        Grabs all Items in the MongoDB collection
-        """
-        return PropertySet(self.find_by({}))

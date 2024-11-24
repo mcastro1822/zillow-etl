@@ -1,0 +1,3 @@
+"""
+Model for Region Configs
+"""
