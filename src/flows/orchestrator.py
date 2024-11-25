@@ -3,15 +3,16 @@ from functools import reduce
 import polars as pl
 from prefect import flow, task
 
+from flows.pull_listing import query_zillow_listings
 from flows.utility import batch_task_results
 from zillow.blocks import blocks
+from zillow.mongo_models.sitemap_model import Property, ZillowRepository
 from zillow.sitemap import (
     collect_property_urls,
     collect_sitemap_indexes,
     extract_sitemap_dir_urls,
     extract_sitemap_urls,
 )
-from zillow.sitemap_model import Property, ZillowRepository
 
 
 @task(description="Checks against the MongoDB for newly modified Urls")
@@ -56,7 +57,7 @@ def queue_listings(state_code: str):
     sitemap_dir_html: bytes = extract_sitemap_dir_urls()
 
     sitemap_indexes: list = collect_sitemap_indexes(sitemap_dir_html)
-
+    sitemap_indexes = sitemap_indexes[1:2]
     results: list[list[Property]] = reduce(
         lambda output, func: batch_task_results(func, output),
         [extract_sitemap_urls, collect_property_urls],
@@ -67,6 +68,7 @@ def queue_listings(state_code: str):
         result for nested_result in results for result in nested_result
     ]
 
+    query_zillow_listings(results)
     properties_to_queue: dict = return_recently_modified(results)
 
     """

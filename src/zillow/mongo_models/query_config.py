@@ -52,6 +52,10 @@ class RegionConfig(BaseDocument):
     Payload Model
     """
 
+    pagination: dict | None = Field(
+        name="Pagination", description="Contains pagaination metadata", default=None
+    )
+
     mapBounds: MapBounds = Field(name="Map Bounds", description="Map Bounds Definition")
     usersSearchTerm: str = Field(
         name="User Search Term",
@@ -64,7 +68,7 @@ class RegionConfig(BaseDocument):
     filterState: dict = Field(
         name="Filter State",
         description="Query Filters",
-        examples=['{"sortSelection": {"value": "globalrelevanceex"}}'],
+        examples=[{"sortSelection": {"value": "globalrelevanceex"}}],
     )
 
 
