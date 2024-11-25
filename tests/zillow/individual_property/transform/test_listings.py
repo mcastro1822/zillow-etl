@@ -1,7 +1,7 @@
 import pytest
 from polars.testing import assert_frame_equal
 
-from zillow.transform.listing import property_json_to_df
+from zillow.individual_property.transform.listing import property_json_to_df
 
 
 @pytest.mark.parametrize(

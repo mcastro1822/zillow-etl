@@ -4,7 +4,7 @@ Tests for Listings Transforms
 
 import pytest
 
-from zillow.property_model import Address, Property, ResoFacts
+from zillow.individual_property.property_model import Address, Property, ResoFacts
 
 
 class TestModels:

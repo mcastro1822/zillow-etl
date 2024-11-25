@@ -4,7 +4,7 @@ Module to test extracting json from listings
 
 import pytest
 
-from zillow.extract.listing import collect_listing_attrs
+from zillow.individual_property.extract.listing import collect_listing_attrs
 
 
 class TestListings:
