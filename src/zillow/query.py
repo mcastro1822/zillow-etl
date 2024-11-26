@@ -98,7 +98,7 @@ def parse_max_pages(first_page_json: dict) -> list[int]:
 
     pages: int = first_page_json.get("cat1").get("searchList").get("totalPages")
 
-    return [i for i in range(1, pages + 1)]
+    return [i for i in range(2, pages + 1)]
 
 
 @task(name="Parse Page Content")
