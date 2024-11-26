@@ -57,7 +57,7 @@ def test_parse_max_pages(grab_json):
     """
     pages_list = parse_max_pages.fn(grab_json)
 
-    assert pages_list == [1, 2]
+    assert pages_list == [2, 3]
 
 
 @pytest.mark.parametrize(

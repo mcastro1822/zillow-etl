@@ -11,10 +11,10 @@ from prefect.futures import PrefectFuture
 from prefecto.concurrency import BatchTask
 
 from flows.utility import modify_param_on_retry
-from zillow.extract.listing import collect_listing_attrs
+from zillow.individual_property.extract.listing import collect_listing_attrs
+from zillow.individual_property.transform.listing import property_json_to_df
 from zillow.mongo_models.sitemap_model import Property
 from zillow.sitemap import extract_csrf_token, extract_listing_url
-from zillow.transform.listing import property_json_to_df
 
 
 @task(name="Collect Listing", description="Collects Listing Datafram")

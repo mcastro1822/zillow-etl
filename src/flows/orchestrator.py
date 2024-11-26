@@ -1,12 +1,13 @@
 from functools import reduce
 
-import polars as pl
-from prefect import flow, task
+from prefect import flow
 
 from flows.pull_listing import query_zillow_listings
-from flows.utility import batch_task_results
+from flows.queryset import query_zillow_regions
+from flows.utility import batch_task_results, return_recently_modified
 from zillow.blocks import blocks
-from zillow.mongo_models.sitemap_model import Property, ZillowRepository
+from zillow.mongo_models.query_config import RegionDefinitionsRepo
+from zillow.mongo_models.sitemap_model import Property
 from zillow.sitemap import (
     collect_property_urls,
     collect_sitemap_indexes,
@@ -15,37 +16,39 @@ from zillow.sitemap import (
 )
 
 
-@task(description="Checks against the MongoDB for newly modified Urls")
-def return_recently_modified(sitemap_results: list[Property]) -> list[dict]:
-    """ """
+@flow(name="Queue Zillow Property Listing Attributes")
+def queue_listings_attributes():
+    """
+    Queues listings to scrape individual property attributes
 
-    repo = ZillowRepository((blocks.mongodb).get_client()["production"])
 
-    current_props: list[dict] = repo.get_all().model_dump()
+    """
+    sitemap_dir_html: bytes = extract_sitemap_dir_urls()
 
-    current_df: pl.DataFrame = pl.from_dicts(current_props).drop("id")
+    sitemap_indexes: list = collect_sitemap_indexes(sitemap_dir_html)
 
-    sitemap_df: pl.DataFrame = pl.from_dicts(sitemap_results).drop("id")
+    results: list[list[Property]] = reduce(
+        lambda output, func: batch_task_results(func, output),
+        [extract_sitemap_urls, collect_property_urls],
+        sitemap_indexes,
+    )  # Tried unnesting this in the lower layer, didnt work, gave up and moved on oh well
 
-    df = (
-        sitemap_df.join(
-            current_df, on=["property_url", "zillow_id"], how="left", suffix="_current"
-        )
-        .filter(
-            (
-                pl.col("last_modified").cast(pl.Datetime)
-                > pl.col("last_modified_current").cast(pl.Datetime)
-            )
-            | (pl.col("last_modified_current").is_null())
-        )
-        .drop("last_modified_current")
-    )
+    results: list[dict] = [
+        result for nested_result in results for result in nested_result
+    ]
 
-    return df.to_dicts()
+    query_zillow_listings(results)
+    # properties_to_queue: dict = return_recently_modified(results)
+
+    """
+    Need to add in worker deployment here as well as refresh rate for csrf token
+    """
+
+    # return properties_to_queue
 
 
 @flow(name="Queue Zillow Property Listings")
-def queue_listings(state_code: str):
+def queue_listings():
     """
     Queues listings to scrape via state
 
@@ -68,11 +71,17 @@ def queue_listings(state_code: str):
         result for nested_result in results for result in nested_result
     ]
 
-    query_zillow_listings(results)
-    properties_to_queue: dict = return_recently_modified(results)
+    config_repo = RegionDefinitionsRepo((blocks.mongodb).get_client()["production"])
+
+    configs = config_repo.get_all()
+
+    recently_modified = return_recently_modified(results)
+
+    for region_config in configs:
+        query_zillow_regions(region_config, recently_modified)
 
     """
     Need to add in worker deployment here as well as refresh rate for csrf token
     """
 
-    return properties_to_queue
+    return None

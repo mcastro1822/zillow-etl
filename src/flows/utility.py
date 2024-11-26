@@ -6,13 +6,58 @@ import random
 import time
 from typing import Callable
 
+import polars as pl
+from prefect import task
 from prefect.client.schemas import State, TaskRun
 from prefect.context import get_run_context
 from prefect.futures import PrefectFuture
 from prefecto.concurrency import BatchTask
 from prefecto.logging import get_prefect_or_default_logger
 
+from zillow.blocks import blocks
+from zillow.mongo_models.sitemap_model import Property, ZillowRepository
 from zillow.sitemap import extract_csrf_token
+
+
+@task(description="Checks against the MongoDB for newly modified Urls")
+def return_recently_modified(sitemap_results: list[Property]) -> pl.DataFrame:
+    """ """
+
+    repo = ZillowRepository((blocks.mongodb).get_client()["production"])
+
+    current_props: list[dict] = repo.get_all()
+
+    if current_props:
+        current_props = current_props.model_dump()
+
+        current_df: pl.DataFrame = pl.from_dicts(current_props).drop("id")
+
+    else:
+        current_df = pl.DataFrame(
+            schema={
+                "property_url": pl.String,
+                "last_modified": pl.String,
+                "zillow_id": pl.String,
+            }
+        )
+
+    sitemap_df: pl.DataFrame = pl.from_dicts(sitemap_results).drop("id")
+
+    df = (
+        sitemap_df.join(
+            current_df, on=["property_url", "zillow_id"], how="left", suffix="_current"
+        )
+        .filter(
+            (
+                pl.col("last_modified").cast(pl.Datetime)
+                > pl.col("last_modified_current").cast(pl.Datetime)
+            )
+            | (pl.col("last_modified_current").is_null())
+        )
+        .drop("last_modified_current")
+    )
+
+    return df
 
 
 def modify_param_on_retry(csrf_token):

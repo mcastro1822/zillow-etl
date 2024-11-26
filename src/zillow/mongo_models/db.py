@@ -56,6 +56,6 @@ def AbstractRepo(model, model_set, collection: str):
             """
             Grabs all Items in the MongoDB collection
             """
-            return model_set(self.find_by({}))
+            return model_set(self.find_by({})).root
 
     return Repository

@@ -59,7 +59,7 @@ def query_search(
     Sends a search query to zillow
     """
 
-    sleep_time: int = random.randint(50, 150)
+    sleep_time: int = random.randint(30, 60)
     time.sleep(sleep_time)
 
     csrf_token = modify_param_on_retry(csrf_token)
@@ -70,12 +70,13 @@ def query_search(
     if page_num is None:
         page_num = 1
 
-    payload = Payload.from_config(region_config, page_num)
+    payload = Payload.from_config(region_config, page_num).model_dump()
 
     r: httpx.Response = client.put(
         "https://www.zillow.com/async-create-search-page-state",
         headers=headers,
         json=payload,
+        timeout=120,
     )
 
     r.raise_for_status()
