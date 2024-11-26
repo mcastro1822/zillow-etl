@@ -3,7 +3,7 @@ import respx
 from httpx import Response
 from pytest import MonkeyPatch
 
-from flows.orchestrator import queue_listings, return_recently_modified
+from flows.orchestrator import queue_listings_attributes, return_recently_modified
 
 
 @pytest.fixture
@@ -179,4 +179,4 @@ def test_orchestrator(
 
     monkeypatch.setattr("flows.orchestrator.blocks.mongodb.get_client", lambda: mock_db)
 
-    queue_listings("CA")
+    queue_listings_attributes()

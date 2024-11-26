@@ -2,12 +2,18 @@
 Module to manage query creation
 """
 
+import random
+import time
+
 import httpx
+import polars as pl
 from fake_useragent import UserAgent
 from prefect import task
 from pydantic import BaseModel, Field
 
+from flows.utility import modify_param_on_retry
 from zillow.mongo_models.query_config import RegionConfig
+from zillow.searchset.query_model import ResultSet
 
 
 class Payload(BaseModel):
@@ -52,6 +58,12 @@ def query_search(
     """
     Sends a search query to zillow
     """
+
+    sleep_time: int = random.randint(50, 150)
+    time.sleep(sleep_time)
+
+    csrf_token = modify_param_on_retry(csrf_token)
+
     headers = {"User-Agent": UserAgent().random, "csrfToken": csrf_token}
     client: httpx.Client = httpx.Client()
 
@@ -72,7 +84,7 @@ def query_search(
 
 
 @task(name="Parse First Page")
-def parse_max_pages(first_page_json: dict) -> int:
+def parse_max_pages(first_page_json: dict) -> list[int]:
     """
     Returns the max page length from first page
 
@@ -82,3 +94,27 @@ def parse_max_pages(first_page_json: dict) -> int:
     Returns:
         total_pages: Total count of paginated pages
     """
+
+    pages: int = first_page_json.get("cat1").get("searchList").get("totalPages")
+
+    return [i for i in range(1, pages + 1)]
+
+
+@task(name="Parse Page Content")
+def parse_result_content(page_json: dict) -> list[int]:
+    """
+    Returns the max page length from first page
+
+    Args:
+        first_page_json: dict
+
+    Returns:
+        total_pages: Total count of paginated pages
+    """
+    data: list = page_json.get("cat1").get("searchResults").get("listResults")
+
+    results = list(map(ResultSet.model_validate, data))
+
+    df = pl.from_dicts(results).rename({"unformattedPrice": "price"})
+
+    return df
