@@ -1,9 +1,14 @@
+import random
+
+import polars as pl
 import pytest
 import respx
-from httpx import Response
+from httpx import Headers, Response
+from polars.testing import assert_frame_equal
 from pytest import MonkeyPatch
 
-from flows.attributes import queue_listings_attributes, return_recently_modified
+from flows.attributes import queue_listings_attributes
+from flows.utility import return_recently_modified
 
 
 @pytest.fixture
@@ -136,11 +141,11 @@ def test_return_recently_modified(
     """
     Ensures retrieval of desired URLs
     """
-    monkeypatch.setattr("flows.orchestrator.blocks.mongodb.get_client", lambda: mock_db)
+    monkeypatch.setattr("flows.utility.blocks.mongodb.get_client", lambda: mock_db)
 
     new_or_recently_modified = return_recently_modified.fn(mock_sitemap_results)
 
-    assert new_or_recently_modified == [
+    assert new_or_recently_modified.to_dicts() == [
         {
             "property_url": "https://www.zillow.com/homedetails/20201-E-Country-Club-Dr-Aventura-FL-33180/2146995561_zpid/",
             "last_modified": "2024-09-13T04:19:00Z",
@@ -154,6 +159,12 @@ def test_return_recently_modified(
     ]
 
 
+@pytest.mark.parametrize(
+    "grab_html, grab_parquet",
+    [("listing.html", "property.parquet")],
+    indirect=True,
+)
+@respx.mock(assert_all_mocked=True)
 def test_orchestrator(
     sitemap_index_html_bytes: bytes,
     sitemap_html_bytes_0000: bytes,
@@ -164,11 +175,22 @@ def test_orchestrator(
     populate_mongo,
     respx_mock: respx.MockRouter,
     monkeypatch: MonkeyPatch,
+    grab_html,
+    grab_parquet,
 ):
+
+    headers = Headers(
+        headers={
+            "x-amz-cf-id": "P8lpdQBK8EmdB3k5MLUPbxJDSxws5vJY6JGOm_Bds3n4d872HnMmJA==",
+        },
+        encoding="utf-8",
+    )
 
     respx_mock.get(
         "https://www.zillow.com/xml/indexes/us/hdp/for-sale-by-agent.xml.gz"
-    ).mock(return_value=Response(204, content=sitemap_index_html_bytes))
+    ).mock(
+        return_value=Response(204, content=sitemap_index_html_bytes, headers=headers)
+    )
     respx_mock.get(
         "https://www.zillow.com/xml/sitemaps/us/hdp/for-sale-by-agent/sitemap-0000.xml.gz"
     ).mock(return_value=Response(204, content=sitemap_html_bytes_0000))
@@ -177,6 +199,12 @@ def test_orchestrator(
         "https://www.zillow.com/xml/sitemaps/us/hdp/for-sale-by-agent/sitemap-0001.xml.gz"
     ).mock(return_value=Response(204, content=sitemap_html_bytes_0001))
 
-    monkeypatch.setattr("flows.orchestrator.blocks.mongodb.get_client", lambda: mock_db)
+    monkeypatch.setattr(random, "randint", lambda x, y: 1)
 
-    queue_listings_attributes()
+    respx_mock.get(url__startswith="https://www.zillow.com/homedetails/").mock(
+        return_value=Response(204, content=grab_html)
+    )
+
+    df: pl.DataFrame = queue_listings_attributes().unique()
+
+    assert_frame_equal(df, grab_parquet)

@@ -4,6 +4,7 @@ Monthly Attributes Run
 
 from functools import reduce
 
+import polars as pl
 from prefect import flow
 
 from flows.pull_listing import query_zillow_listings
@@ -18,7 +19,7 @@ from zillow.sitemap import (
 
 
 @flow(name="Queue Zillow Property Listing Attributes")
-def queue_listings_attributes():
+def queue_listings_attributes() -> pl.DataFrame:
     """
     Queues listings to scrape individual property attributes
 
@@ -38,11 +39,11 @@ def queue_listings_attributes():
         result for nested_result in results for result in nested_result
     ]
 
-    query_zillow_listings(results)
+    df = query_zillow_listings(results)
     # properties_to_queue: dict = return_recently_modified(results)
 
     """
     Need to add in worker deployment here as well as refresh rate for csrf token
     """
 
-    # return properties_to_queue
+    return df

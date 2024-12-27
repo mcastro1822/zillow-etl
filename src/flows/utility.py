@@ -15,7 +15,7 @@ from prefecto.concurrency import BatchTask
 from prefecto.logging import get_prefect_or_default_logger
 
 from zillow.blocks import blocks
-from zillow.mongo_models.sitemap_model import Property, ZillowRepository
+from zillow.mongo_models.sitemap_model import Property, PropertySet, ZillowRepository
 from zillow.sitemap import extract_csrf_token
 
 
@@ -25,7 +25,7 @@ def return_recently_modified(sitemap_results: list[Property]) -> pl.DataFrame:
 
     repo = ZillowRepository((blocks.mongodb).get_client()["production"])
 
-    current_props: list[dict] = repo.get_all()
+    current_props: PropertySet = repo.get_all()
 
     if current_props:
         current_props = current_props.model_dump()

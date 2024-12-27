@@ -3,7 +3,6 @@ Module for collecting listings from Zillow Sitemap
 """
 
 import httpx
-import requests
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 from prefect import task
@@ -142,7 +141,7 @@ def extract_listing_url(property_url: str, csrf_token: str) -> bytes:
 
     headers = {"User-Agent": UserAgent().random, "csrfToken": csrf_token}
 
-    response: httpx.Response = requests.Session().get(property_url, headers=headers)
+    response: httpx.Response = httpx.Client().get(property_url, headers=headers)
 
     response.raise_for_status()
 

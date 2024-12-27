@@ -22,7 +22,7 @@ def queue_prices():
 
     config_repo = RegionDefinitionsRepo((blocks.mongodb).get_client()["production"])
 
-    configs = config_repo.get_all()
+    configs = config_repo.get_all().root
 
     for region_config in configs:
         query_zillow_regions(region_config)
