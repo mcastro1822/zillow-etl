@@ -33,7 +33,7 @@ def extract_and_transform(page_num, csrf_token, region_config) -> pl.DataFrame:
 @flow(
     name="Query Zillow Regions", description="Requests a Search from defined boundaries"
 )
-def query_zillow_regions(region_config: RegionConfig):
+def query_zillow_regions(region_config: RegionConfig) -> pl.DataFrame:
     """
     Requests a Search from defined boundaries
 
