@@ -32,8 +32,10 @@ class MongoDB(Block):
             return values
 
     def get_client(self) -> MongoClient:
+
         return MongoClient(
             host=self.host,
             username=self.username,
             password=self.password.get_secret_value(),
+            authSource="production",
         )

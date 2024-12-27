@@ -1,7 +1,7 @@
 import polars as pl
 from prefect import task
 
-from zillow.property_model import Property
+from zillow.individual_property.property_model import Property
 
 
 @task(description="Converts Property Model to Dataframe")

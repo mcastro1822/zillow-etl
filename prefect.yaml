@@ -1,0 +1,32 @@
+# Welcome to your prefect.yaml file! You can use this file for storing and managing
+# configuration for deploying your flows. We recommend committing this file to source
+# control along with your flow code.
+
+# Generic metadata about this project
+name: zillow-etl
+prefect-version: 2.20.11
+
+# pull section allows you to provide instructions for cloning this project in remote locations
+pull:
+  - prefect.deployments.steps.git_clone:
+      id: cloned_repo
+      repository: https://github.com/your-username/your-repo.git
+      branch: main
+      access_token: "{{ prefect.blocks.secret.github-access-token }}"
+  - prefect.deployments.steps.run_shell_scripts:
+      directory: '{{ cloned_repo.directory }}'
+# the deployments section allows you to provide configuration for deploying flows
+deployments:
+- name: null
+  version: null
+  tags: []
+  description: null
+  schedule: {}
+  flow_name: null
+  entrypoint: null
+  parameters: {}
+  work_pool:
+    name: null
+    work_queue_name: null
+    job_variables:
+      image: '{{ build_image.image }}'

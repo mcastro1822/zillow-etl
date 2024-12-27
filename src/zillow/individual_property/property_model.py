@@ -38,12 +38,13 @@ class ResoFacts(BaseModel):
 
     model_config = ConfigDict(extra="ignore")
 
-    architecturalStyle: str = Field(
+    architecturalStyle: str | None = Field(
         name="Architectural Style",
         description="Style of the property",
         examples=["European,Traditional"],
+        default=None,
     )
-    appliances: list = Field(
+    appliances: list | None = Field(
         name="Appliamces",
         description="List of appliances for the property",
         examples=[
@@ -52,8 +53,9 @@ class ResoFacts(BaseModel):
                 "Disposal",
             ]
         ],
+        default=None,
     )
-    communityFeatures: list = Field(
+    communityFeatures: list | None = Field(
         name="Community Features",
         description="List of community features for the property",
         examples=[
@@ -62,24 +64,31 @@ class ResoFacts(BaseModel):
                 "Homeowners Assoc",
             ]
         ],
+        default=None,
     )
-    hasCooling: bool = Field(
+    hasCooling: bool | None = Field(
         name="Has Cooling",
         description="Boolean indicator for whether a property has cooling",
         examples=[True, False],
+        default=None,
     )
-    hasHeating: bool = Field(
+    hasHeating: bool | None = Field(
         name="Has Heating",
         description="Boolean indicator for whether a property has heating",
         examples=[True, False],
+        default=None,
     )
-    taxAnnualAmount: int = Field(
+    taxAnnualAmount: int | None = Field(
         name="Tax Annual Amount",
         description="Annual tax amount of the proeprty",
         examples=[1287],
+        default=None,
     )
-    stories: int = Field(
-        name="Stories", description="Number of floors a property has", examples=[1, 2]
+    stories: int | None = Field(
+        name="Stories",
+        description="Number of floors a property has",
+        examples=[1, 2],
+        default=None,
     )
 
 
@@ -118,23 +127,26 @@ class Property(BaseModel):
         ],
     )
 
-    bedrooms: int = Field(
+    bedrooms: int | None = Field(
         name="Bedrooms",
         description="Number of bedrooms in the property",
         examples=[1, 2],
+        default=None,
     )
-    bathrooms: int = Field(
+    bathrooms: int | None = Field(
         name="Bathrooms",
         description="Number of bathrooms in the property",
         examples=[0, 1],
+        default=None,
     )
     price: int = Field(
         name="Price", description="Price of the property", examples=[265000]
     )
-    yearBuilt: int = Field(
+    yearBuilt: int | None = Field(
         name="Year Built",
         description="Year the property was built",
         examples=[2000, 1964],
+        default=None,
     )
     country: str = Field(
         name="Country", description="Country the property is in", examples=["USA"]
@@ -151,29 +163,42 @@ class Property(BaseModel):
     resoFacts: ResoFacts = Field(
         name="Rest of Facts", description="Additional facts about the property"
     )
-    monthlyHoaFee: int = Field(name="Monthly HOA Fee", examples=[486])
-    livingArea: int = Field(
-        name="Living Area", description="Living Area Size", examples=[1206]
+    monthlyHoaFee: int | None = Field(
+        name="Monthly HOA Fee", examples=[486], default=None
     )
-    livingAreaUnits: str = Field(
+    livingArea: int | None = Field(
+        name="Living Area",
+        description="Living Area Size",
+        examples=[1206],
+        default=None,
+    )
+    livingAreaUnits: str | None = Field(
         name="Living Area Units",
         description="Living Area Units",
         examples=["Square Feet"],
+        default=None,
     )
-    zestimate: int = Field(
-        name="Zestimate", description="Zillow Price Estimate", examples=[262100]
+    zestimate: int | None = Field(
+        name="Zestimate",
+        description="Zillow Price Estimate",
+        examples=[262100],
+        default=None,
     )
-    rentZestimate: int = Field(
-        name="Rent Zestimate", description="Zillow Rent Estimate", examples=[2114]
+    rentZestimate: int | None = Field(
+        name="Rent Zestimate",
+        description="Zillow Rent Estimate",
+        examples=[2114],
+        default=None,
     )
     latitude: float = Field(name="Latitude", examples=[33.94186])
     longitude: float = Field(name="Longitude", examples=[-84.37228])
-    brokerageName: str = Field(
-        name="Brokerage Name", examples=["Presley Roth Real Estate"]
+    brokerageName: str | None = Field(
+        name="Brokerage Name", examples=["Presley Roth Real Estate"], default=None
     )
     propertyTaxRate: float = Field(name="Property Tax Rate", examples=[0.82])
-    mlsid: str = Field(
+    mlsid: str | None = Field(
         name="MLS ID",
         description="Unique Identifier across platforms for the listing",
         examples=["7477717"],
+        default=None,
     )
