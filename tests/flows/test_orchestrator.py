@@ -3,7 +3,7 @@ import respx
 from httpx import Response
 from pytest import MonkeyPatch
 
-from flows.orchestrator import queue_listings_attributes, return_recently_modified
+from flows.attributes import queue_listings_attributes, return_recently_modified
 
 
 @pytest.fixture

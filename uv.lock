@@ -454,6 +454,23 @@ wheels = [
 ]
 
 [[package]]
+name = "fake-http-header"
+version = "0.3.5"
+source = { registry = "https://pypi.org/simple" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e3/0b/2849c87d9f13766e29c0a2f4d31681aa72e035016b251ab19d99bde7b592/fake_http_header-0.3.5-py3-none-any.whl", hash = "sha256:cd05f4bebf1b7e38b5f5c03d7fb820c0c17e87d9614fbee0afa39c32c7a2ad3c", size = 14938 },
+]
+
+[[package]]
+name = "fake-useragent"
+version = "1.5.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/24/a1/1f662631ab153975fa8dbf09296324ecbaf53370dce922054e8de6b57370/fake-useragent-1.5.1.tar.gz", hash = "sha256:6387269f5a2196b5ba7ed8935852f75486845a1c95c50e72460e6a8e762f5c49", size = 22631 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e4/99/60d8cf1b26938c2e0a57e232f7f15641dfcd6f8deda454d73e4145910ff6/fake_useragent-1.5.1-py3-none-any.whl", hash = "sha256:57415096557c8a4e23b62a375c21c55af5fd4ba30549227f562d2c4f5b60e3b3", size = 17190 },
+]
+
+[[package]]
 name = "filelock"
 version = "3.16.1"
 source = { registry = "https://pypi.org/simple" }
@@ -469,15 +486,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/a0/52/f16a068ebadae42526484c31f4398e62962504e5724a8ba5dc3409483df2/fsspec-2024.10.0.tar.gz", hash = "sha256:eda2d8a4116d4f2429db8550f2457da57279247dd930bb12f821b58391359493", size = 286853 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c6/b2/454d6e7f0158951d8a78c2e1eb4f69ae81beb8dca5fee9809c6c99e9d0d0/fsspec-2024.10.0-py3-none-any.whl", hash = "sha256:03b9a6785766a4de40368b88906366755e2819e758b83705c88cd7cb5fe81871", size = 179641 },
-]
-
-[[package]]
-name = "getuseragent"
-version = "0.0.7"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/49/a3/189cf72d47cfaa039d36df537281d740c35823af87f95ce2c48c68499735/getuseragent-0.0.7.tar.gz", hash = "sha256:fdfa80651e787771142f711ac120dc7bfb852a13fb4525087605149e57ab196b", size = 24486 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/97/96/8f5451cbf1b862614a168764356108eefa5f07b585de7c3ece3110d6fe93/getuseragent-0.0.7-py3-none-any.whl", hash = "sha256:faf29ae99771e3e0a9f28912161092988dad3c8183dcbe6de9ee063bf45e0b32", size = 25600 },
 ]
 
 [[package]]
@@ -880,6 +888,15 @@ wheels = [
 ]
 
 [[package]]
+name = "mockito"
+version = "1.5.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/28/84/88ee894d53d805e246a2bdb76110644999793ecd9a004ed5e9dd777b9899/mockito-1.5.3.tar.gz", hash = "sha256:b7192840e7d70ec24639cc5e18efee5d418c83ad86c0fd2bf7e71c3e42ae0aa7", size = 58698 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/bd/02/992b22a48ca26cf11afe368f47af106d34634926dc74b2556082d102fb36/mockito-1.5.3-py3-none-any.whl", hash = "sha256:094a5e7ebd140e6b5dcb0fc581f83616000f2b1311facc3b5e6167b906b52955", size = 30154 },
+]
+
+[[package]]
 name = "mongomock"
 version = "4.2.0.post1"
 source = { registry = "https://pypi.org/simple" }
@@ -1071,6 +1088,24 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/13/fc/128cc9cb8f03208bdbf93d3aa862e16d376844a14f9a0ce5cf4507372de4/platformdirs-4.3.6.tar.gz", hash = "sha256:357fb2acbc885b0419afd3ce3ed34564c13c9b95c89360cd9563f73aa5e2b907", size = 21302 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/3c/a6/bc1012356d8ece4d66dd75c4b9fc6c1f6650ddd5991e421177d9f8f671be/platformdirs-4.3.6-py3-none-any.whl", hash = "sha256:73e575e1408ab8103900836b97580d5307456908a03e92031bab39e4554cc3fb", size = 18439 },
+]
+
+[[package]]
+name = "playwright"
+version = "1.48.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "greenlet" },
+    { name = "pyee" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b8/41/0166d58c3eeae72377cbcd4cbed84b36cddc551a2b094bf7984198aafb79/playwright-1.48.0-py3-none-macosx_10_13_x86_64.whl", hash = "sha256:082bce2739f1078acc7d0734da8cc0e23eb91b7fae553f3316d733276f09a6b1", size = 34989519 },
+    { url = "https://files.pythonhosted.org/packages/64/41/d77c47743800fbeb86657611e651e56a17cbb4ebfefa1da0318dc39092df/playwright-1.48.0-py3-none-macosx_11_0_arm64.whl", hash = "sha256:7da2eb51a19c7f3b523e9faa9d98e7af92e52eb983a099979ea79c9668e3cbf7", size = 33302881 },
+    { url = "https://files.pythonhosted.org/packages/b0/f2/f184f613e6f496ed78e7808ac729900257567d2c1a7930e61026f0e48a5f/playwright-1.48.0-py3-none-macosx_11_0_universal2.whl", hash = "sha256:115b988d1da322358b77bc3bf2d3cc90f8c881e691461538e7df91614c4833c9", size = 34989518 },
+    { url = "https://files.pythonhosted.org/packages/f9/0c/8cde1a86a9a7449a0ba95197f42156198083be1749b717831fba16ab2b5f/playwright-1.48.0-py3-none-manylinux1_x86_64.whl", hash = "sha256:8dabb80e62f667fe2640a8b694e26a7b884c0b4803f7514a3954fc849126227b", size = 38171658 },
+    { url = "https://files.pythonhosted.org/packages/31/dc/121be574222fc74d12ac42921728fb6ba8ac17264a1fdab1993263389082/playwright-1.48.0-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:8ff8303409ebed76bed4c3d655340320b768817d900ba208b394fdd7d7939a5c", size = 37919223 },
+    { url = "https://files.pythonhosted.org/packages/3a/c5/ff02a780c76e9cf20296e2d1743bb42b1e81d62535802eb6d67b1b6b7b47/playwright-1.48.0-py3-none-win32.whl", hash = "sha256:85598c360c590076d4f435525be991246d74a905b654ac19d26eab7ed9b98b2d", size = 29983089 },
+    { url = "https://files.pythonhosted.org/packages/45/88/b6459c93a8bc0b96e7a33b6744bbef2740a0b78b0534542a037d220427f0/playwright-1.48.0-py3-none-win_amd64.whl", hash = "sha256:e0e87b0c4dc8fce83c725dd851aec37bc4e882bb225ec8a96bd83cf32d4f1623", size = 29983099 },
 ]
 
 [[package]]
@@ -1337,6 +1372,18 @@ wheels = [
 ]
 
 [[package]]
+name = "pyee"
+version = "12.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/d2/a7/8faaa62a488a2a1e0d56969757f087cbd2729e9bcfa508c230299f366b4c/pyee-12.0.0.tar.gz", hash = "sha256:c480603f4aa2927d4766eb41fa82793fe60a82cbfdb8d688e0d08c55a534e145", size = 29675 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/1d/0d/95993c08c721ec68892547f2117e8f9dfbcef2ca71e098533541b4a54d5f/pyee-12.0.0-py3-none-any.whl", hash = "sha256:7b14b74320600049ccc7d0e0b1becd3b4bd0a03c745758225e31a59f4095c990", size = 14831 },
+]
+
+[[package]]
 name = "pygments"
 version = "2.18.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1406,6 +1453,16 @@ sdist = { url = "https://files.pythonhosted.org/packages/8b/6c/62bbd536103af674e
 wheels = [
     { url = "https://files.pythonhosted.org/packages/6b/77/7440a06a8ead44c7757a64362dd22df5760f9b12dc5f11b6188cd2fc27a0/pytest-8.3.3-py3-none-any.whl", hash = "sha256:a6853c7375b2663155079443d2e45de913a911a11d669df02a50814944db57b2", size = 342341 },
 ]
+
+[[package]]
+name = "pytest-mockito"
+version = "0.0.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "mockito" },
+    { name = "pytest" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a4/f8/ae0035931c603e4ed5db496c13b12a995f327ee1d86d1b705eb3b6b9365b/pytest-mockito-0.0.4.tar.gz", hash = "sha256:40d40cdf118127dcb1e3c9e838b0d1c11d5197a23beaf10b6e3f42f9b6cb68a9", size = 3037 }
 
 [[package]]
 name = "python-dateutil"
@@ -1873,6 +1930,20 @@ wheels = [
 ]
 
 [[package]]
+name = "tf-playwright-stealth"
+version = "1.0.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "fake-http-header" },
+    { name = "playwright" },
+    { name = "pytest-mockito" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/e2/71/f8871c2c468011f5881094c45687307756f4299bbb7bf0ed1236977c093b/tf_playwright_stealth-1.0.3.tar.gz", hash = "sha256:94353842c6517fba19da2277c5b68272f86eb6bfb056f36d66b5b8497fc96133", size = 24125 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/65/72/0a21181b534f2d1be535558375ec9122a7c80df1aeea4f8fd85947955eb4/tf_playwright_stealth-1.0.3-py3-none-any.whl", hash = "sha256:2d341f485eb5fc61fc7755f7f7f803e06d133ee263e0dfa632d16f9c99008f4d", size = 32685 },
+]
+
+[[package]]
 name = "time-machine"
 version = "2.16.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2122,16 +2193,18 @@ version = "0.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "beautifulsoup4" },
-    { name = "getuseragent" },
+    { name = "fake-useragent" },
     { name = "mongomock" },
     { name = "moto", extra = ["s3"] },
     { name = "orjson" },
+    { name = "playwright" },
     { name = "polars" },
     { name = "prefect-aws" },
     { name = "pydantic-extra-types" },
     { name = "pydantic-mongo" },
     { name = "pymongo" },
     { name = "respx" },
+    { name = "tf-playwright-stealth" },
 ]
 
 [package.dev-dependencies]
@@ -2147,16 +2220,18 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "beautifulsoup4", specifier = ">=4.12.3" },
-    { name = "getuseragent", specifier = ">=0.0.7" },
+    { name = "fake-useragent", specifier = ">=1.5.1" },
     { name = "mongomock", specifier = ">=4.2.0.post1" },
     { name = "moto", extras = ["s3"], specifier = ">=5.0.20" },
     { name = "orjson", specifier = ">=3.10.11" },
+    { name = "playwright", extras = ["all", "chromium"], specifier = ">=1.48.0" },
     { name = "polars", specifier = ">=1.12.0" },
     { name = "prefect-aws", specifier = ">=0.4.20" },
     { name = "pydantic-extra-types", specifier = ">=2.10.0" },
     { name = "pydantic-mongo", specifier = ">=2.3.0" },
     { name = "pymongo", specifier = ">=4.10.1" },
     { name = "respx", specifier = ">=0.21.1" },
+    { name = "tf-playwright-stealth", specifier = ">=1.0.3" },
 ]
 
 [package.metadata.requires-dev]

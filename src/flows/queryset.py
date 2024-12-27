@@ -33,7 +33,7 @@ def extract_and_transform(page_num, csrf_token, region_config) -> pl.DataFrame:
 @flow(
     name="Query Zillow Regions", description="Requests a Search from defined boundaries"
 )
-def query_zillow_regions(region_config: RegionConfig, recently_modified: pl.DataFrame):
+def query_zillow_regions(region_config: RegionConfig):
     """
     Requests a Search from defined boundaries
 
@@ -66,8 +66,4 @@ def query_zillow_regions(region_config: RegionConfig, recently_modified: pl.Data
         .cast({"zpid": pl.String})
     )
 
-    new_records = df.join(
-        recently_modified, left_on="zpid", right_on="zillow_id", how="inner"
-    )
-
-    return new_records
+    return df
